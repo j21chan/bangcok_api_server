@@ -1,8 +1,13 @@
 package com.bangcok_api_server.myapp;
 
 import java.io.IOException;
+import java.util.Map;
+
+import javax.inject.Inject;
 
 import org.json.simple.parser.ParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,10 +15,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bangcok_api_server.Recommend.InteractiveRecommender;
 import com.bangcok_api_server.Recommend.TourismRecommender;
+import com.bangcok_api_server.domain.UserVO;
+import com.bangcok_api_server.service.RecommendTourismService;
+import com.bangcok_api_server.service.UserService;
+import com.bangcok_api_server.utility.MyResponse;
 import com.bangcok_api_server.weather.WeatherCalculator;
 
 @RestController
+@RequestMapping(value="/tourism/*")
 public class HomeController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
+	@Inject
+	UserService userService;
+	
+	@Inject
+	RecommendTourismService tourismService;
 	
 	// 관광지 추천 API
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -39,24 +57,30 @@ public class HomeController {
 	}
 	
 	// 관광지 추천 테스트
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public String recommendTest() throws IOException, ParseException {
+	@RequestMapping(value = "/recommend_tourism", method = RequestMethod.GET)
+	public Map<String, Object> recommendTest() throws IOException, ParseException {
 		
-		new TourismRecommender().recommend();
-		
-		return "test";
+		return MyResponse.toResponse(new TourismRecommender().recommend());
 	}
 	
 	// 인터렉티브 관광지 추천
 	@RequestMapping(value = "/interRecommend", method = RequestMethod.GET)
-	public String interRecommend(@RequestParam("contentTypeId") String contentTypeId,
-							     @RequestParam("mapX") 		    String mapX,
-							     @RequestParam("mapY") 		    String mapY) throws IOException {
+	public Map<String, Object> interRecommend(@RequestParam("contentTypeId") String contentTypeId,
+										      @RequestParam("mapX") 		    String mapX,
+										      @RequestParam("mapY") 		    String mapY) throws IOException {
 		mapX = "126.981106";
 		mapY = "37.568477";
 		
-		System.out.println(new InteractiveRecommender().recommend(contentTypeId, mapX, mapY));
+		return MyResponse.toResponse(new InteractiveRecommender().recommend(contentTypeId, mapX, mapY));
+	}
+	
+	// 유저 정보 & 현재 위치
+	@RequestMapping(value="/recommend", method=RequestMethod.GET)
+	public Map<String, Object> recommendTourism(@RequestParam("mapX") String mapX,
+												@RequestParam("mapY") String mapY,
+												@RequestParam("userid") String userid) throws Exception {
 		
-		return "test";
+		logger.info("recommend Tourism .....");
+		return MyResponse.toResponse(tourismService.recommend(userService.get(userid), mapX, mapY));
 	}
 }

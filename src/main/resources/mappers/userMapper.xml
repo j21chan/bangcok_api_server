@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.bangcok_api_server.mappers.userMapper">
+  	
+  	<insert id="insertUser">
+  		insert into user (userid, country, age, gender, visitCount) values
+  		(#{userid}, #{country}, #{age}, #{gender}, #{visitCount})
+  	</insert>
+  	
+  	<select id="getUser" resultType="com.bangcok_api_server.domain.UserVO">
+  		select *
+  		from user
+  		where userid=#{userid}
+  	</select>
+  	
+  </mapper>

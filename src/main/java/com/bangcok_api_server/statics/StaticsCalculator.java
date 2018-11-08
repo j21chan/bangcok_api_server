@@ -43,7 +43,7 @@ public class StaticsCalculator {
 		staticsWeight.put("shopping", result[4]);
 		staticsWeight.put("food", result[5]);
 		
-        System.out.println(staticsWeight);
+//        System.out.println(staticsWeight);
         
         return staticsWeight;
 	}
