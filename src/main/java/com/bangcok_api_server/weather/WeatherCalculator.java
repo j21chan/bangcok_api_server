@@ -35,9 +35,11 @@ public class WeatherCalculator {
 	}
 	
 	// 현재 위치를 API에서 이용하는 위치에 맞게 세팅
+	// v1 = lat
+	// v2 = lon
     public void setLocationToGrid(double v1, double v2) {
-    	this.mapx = v1;
-    	this.mapy = v2;
+    	this.mapx = v2;
+    	this.mapy = v1;
     	
         double RE = 6371.00877; // 지구 반경(km)
         double GRID = 5.0; // 격자 간격(km)

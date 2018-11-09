@@ -1,4 +1,4 @@
-package com.bangcok_api_server.Recommend;
+package com.bangcok_api_server.recommend;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +21,7 @@ public class AllWeightCalculator {
 		
 		double mapx_d = Double.parseDouble(mapx);
 		double mapy_d = Double.parseDouble(mapy);
+		System.out.println(mapx_d + " / " + mapy_d);
 		
 		// 유저 하드코딩
 		String user_country = vo.getCountry();

@@ -8,22 +8,24 @@ import javax.inject.Inject;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
 
-import com.bangcok_api_server.Recommend.TourismRecommender;
+import com.bangcok_api_server.domain.TrendTourismVO;
 import com.bangcok_api_server.domain.UserVO;
+import com.bangcok_api_server.persistence.TrendTourismDAO;
+import com.bangcok_api_server.recommend.TourismRecommender;
 
 @Service
 public class RecommendTourismServiceImpl implements RecommendTourismService {
 	
 	@Inject
-	TourismRecommender recommender;
+	TourismRecommender tourismRecommender;
 	
 	@Override
 	public List<Object> recommend() throws IOException, ParseException {
-		return recommender.recommend();
+		return tourismRecommender.recommend();
 	}
 
 	@Override
 	public List<Object> recommend(UserVO vo, String mapx, String mapy) throws IOException, ParseException {
-		return recommender.recommend(vo, mapx, mapy);
+		return tourismRecommender.recommend(vo, mapx, mapy);
 	}
 }

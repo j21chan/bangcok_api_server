@@ -1,4 +1,4 @@
-package com.bangcok_api_server.Recommend;
+package com.bangcok_api_server.recommend;
 
 import java.io.IOException;
 import java.util.ArrayList;

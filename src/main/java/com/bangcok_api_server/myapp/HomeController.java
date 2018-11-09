@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bangcok_api_server.Recommend.InteractiveRecommender;
-import com.bangcok_api_server.Recommend.TourismRecommender;
-import com.bangcok_api_server.domain.UserVO;
+import com.bangcok_api_server.recommend.InteractiveRecommender;
+import com.bangcok_api_server.recommend.TourismRecommender;
 import com.bangcok_api_server.service.RecommendTourismService;
+import com.bangcok_api_server.service.TrendTourismService;
 import com.bangcok_api_server.service.UserService;
 import com.bangcok_api_server.utility.MyResponse;
 import com.bangcok_api_server.weather.WeatherCalculator;
@@ -31,7 +31,10 @@ public class HomeController {
 	UserService userService;
 	
 	@Inject
-	RecommendTourismService tourismService;
+	RecommendTourismService recommendTourismService;
+	
+	@Inject
+	TrendTourismService trendTourismService;
 	
 	// 관광지 추천 API
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -57,20 +60,20 @@ public class HomeController {
 	}
 	
 	// 관광지 추천 테스트
-	@RequestMapping(value = "/recommend_tourism", method = RequestMethod.GET)
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public Map<String, Object> recommendTest() throws IOException, ParseException {
 		
 		return MyResponse.toResponse(new TourismRecommender().recommend());
 	}
 	
 	// 인터렉티브 관광지 추천
-	@RequestMapping(value = "/interRecommend", method = RequestMethod.GET)
+	@RequestMapping(value = "/interactive", method = RequestMethod.GET)
 	public Map<String, Object> interRecommend(@RequestParam("contentTypeId") String contentTypeId,
 										      @RequestParam("mapX") 		    String mapX,
 										      @RequestParam("mapY") 		    String mapY) throws IOException {
 		mapX = "126.981106";
 		mapY = "37.568477";
-		
+		logger.info("interactive Tourism .....");
 		return MyResponse.toResponse(new InteractiveRecommender().recommend(contentTypeId, mapX, mapY));
 	}
 	
@@ -81,6 +84,7 @@ public class HomeController {
 												@RequestParam("userid") String userid) throws Exception {
 		
 		logger.info("recommend Tourism .....");
-		return MyResponse.toResponse(tourismService.recommend(userService.get(userid), mapX, mapY));
+		return MyResponse.toResponse(recommendTourismService.recommend(userService.get(userid), mapX, mapY),
+									 trendTourismService.listTrendTourism());
 	}
 }

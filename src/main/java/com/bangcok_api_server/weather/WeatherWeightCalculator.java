@@ -9,7 +9,7 @@ public class WeatherWeightCalculator {
 	
 	public Map<String, Integer> calculateWeight(double mapx, double mapy) throws IOException, ParseException{
 		WeatherCalculator weatherCalc = new WeatherCalculator();
-		weatherCalc.setLocationToGrid(mapx, mapy);
+		weatherCalc.setLocationToGrid(mapy, mapx);
 		weatherCalc.calculateAllWeather();
 		return weatherCalc.calculateAllWeatherWeight();
 	}
