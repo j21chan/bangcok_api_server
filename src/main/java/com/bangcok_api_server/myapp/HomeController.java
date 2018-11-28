@@ -1,6 +1,7 @@
 package com.bangcok_api_server.myapp;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bangcok_api_server.recommend.InteractiveRecommender;
 import com.bangcok_api_server.recommend.TourismRecommender;
+import com.bangcok_api_server.service.LogService;
 import com.bangcok_api_server.service.RecommendTourismService;
 import com.bangcok_api_server.service.TrendTourismService;
 import com.bangcok_api_server.service.UserService;
@@ -35,6 +37,9 @@ public class HomeController {
 	
 	@Inject
 	TrendTourismService trendTourismService;
+	
+//	@Inject
+//	LogService logService;
 	
 	// 관광지 추천 API
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -84,7 +89,10 @@ public class HomeController {
 												@RequestParam("userid") String userid) throws Exception {
 		
 		logger.info("recommend Tourism .....");
-		return MyResponse.toResponse(recommendTourismService.recommend(userService.get(userid), mapX, mapY),
+		System.out.println("[" + mapX + ", " + mapY + ", " + userid + "]");
+		List<Object> recommendList = recommendTourismService.recommend(userService.get(userid), mapX, mapY);
+//		logService.insertTourismLog(recommendList);
+		return MyResponse.toResponse(recommendList,
 									 trendTourismService.listTrendTourism());
 	}
 }

@@ -68,9 +68,6 @@ public class LocationBasedListJsonParser implements JsonParser {
         // pageNo
         int pageNo = Integer.parseInt(jsonBody.get("pageNo").toString());
         
-//        System.out.println("관광지 개수 : " + numOfRows + " 개");
-//        System.out.println("페이지 : " + pageNo + "\n");
-        
 		// json items value null 값 확인
         if (jsonBody.get("items").toString().equals("")) {
 			
@@ -82,156 +79,281 @@ public class LocationBasedListJsonParser implements JsonParser {
 	        // json items value
 	        JSONObject jsonItems = (JSONObject) jsonBody.get("items");
 	        
-	        // jsonArray item value
-	        JSONArray jsonItemArray = (JSONArray) jsonItems.get("item");
-	        
-	        // items json array에 담긴 각 json 오브젝트를 빼오는 작업
-//	        System.out.println("******** JSON Parser를 이용해서 파싱 ********" + "\n");
-	        for (int i = 0; i < 2; i++) {
-	        	
-	        	// 임시 json 객체
-	        	int randomIndex = (int) (Math.random() * jsonItemArray.size());
-	        	
-	        	JSONObject temp = (JSONObject) jsonItemArray.get(randomIndex);
-	        	jsonItemArray.remove(randomIndex);
-	        	
-	        	// 1. 각 JSON 객체의 Key 값이 있는지 검사
-	        	// 2. 값이 있으면 파싱해서 데이터를 넣음
-	        	// 3. 데이터 값 출력
-//	        	System.out.println("------------ " + (i + 1) + "번째 인덱스 값 ------------");
-	        	
-	        	// 변수 초기화
-	    		addr1 = null;
-	    		addr2 = null;
-	    		areacode = null;
-	    		booktour = null;
-	    		cat1 = null;
-	    		cat2 = null;
-	    		cat3 = null;
-	    		contentid = null;
-	    		contenttypeid = null;
-	    		createdtime = null;
-	    		dist = 0;
-	    		firstimage = null;
-	    		firstimage2 = null;
-	    		mapx = 0;
-	    		mapy = 0;
-	    		mlevel = null;
-	    		modifiedtime = null;
-	    		readcount = 0;
-	    		sigungucode = null;
-	    		tel = null;
-	    		title = null;
-	        	
-	        	if(temp.containsKey("addr1")) {
-	        		addr1 = temp.get("addr1").toString();
-//	            	System.out.println("addr1 : " + addr1);
-	        	}
-	        	
-	        	if(temp.containsKey("addr2")) {
-	        		addr2 = temp.get("addr2").toString();
-//	            	System.out.println("addr2 : " + addr2);
-	        	}
-	        	
-	        	if(temp.containsKey("areacode")) {
-	        		areacode = temp.get("areacode").toString();
-//	            	System.out.println("areacode : " + areacode);
-	        	}
-	        	
-	        	if(temp.containsKey("cat1")) {
-	        		cat1 = temp.get("cat1").toString();
-//	            	System.out.println("cat1 : " + cat1);
-	        	}
-	        	
-	        	if(temp.containsKey("cat2")) {
-	        		cat2 = temp.get("cat2").toString();
-//	            	System.out.println("cat2 : " + cat2);
-	        	}
-	        	
-	        	if(temp.containsKey("cat3")) {
-	        		cat3 = temp.get("cat3").toString();
-//	            	System.out.println("cat3 : " + cat3);
-	        	}
-	        	
-	        	if(temp.containsKey("contentid")) {
-	        		contentid = temp.get("contentid").toString();
-//	            	System.out.println("contentid : " + contentid);
-	        	}
-	        	
-	        	if(temp.containsKey("contenttypeid")) {
-	        		contenttypeid = temp.get("contenttypeid").toString();
-//	            	System.out.println("contenttypeid : " + contenttypeid);
-	        	}
-	        	
-	        	if(temp.containsKey("createdtime")) {
-	        		createdtime = temp.get("createdtime").toString();
-//	            	System.out.println("createdtime : " + createdtime);
-	        	}
-	
-	        	if(temp.containsKey("dist")) {
-	        		dist = Double.parseDouble(temp.get("dist").toString());
-//	            	System.out.println("dist : " + dist);
-	        	}
-	        	
-	        	if(temp.containsKey("firstimage")) {
-	        		firstimage = temp.get("firstimage").toString();
-//	            	System.out.println("firstimage : " + firstimage);
-	        	}
-	        	
-	        	if(temp.containsKey("firstimage2")) {
-	        		firstimage2 = temp.get("firstimage2").toString();
-//	            	System.out.println("firstimage2 : " + firstimage2);
-	        	}
-	        	
-	        	if(temp.containsKey("mapx")) {
-	        		mapx = Double.parseDouble(temp.get("mapx").toString());
-//	            	System.out.println("mapx : " + mapx);
-	        	}
-	        	
-	        	if(temp.containsKey("mapy")) {
-	        		mapy = Double.parseDouble(temp.get("mapy").toString());
-//	            	System.out.println("mapy : " + mapy);
-	        	}
-	        	
-	        	if(temp.containsKey("mlevel")) {
-	            	mlevel = temp.get("mlevel").toString();
-//	            	System.out.println("mlevel : " + mlevel);
-	        	}
-	        	
-	        	if(temp.containsKey("modifiedtime")) {
-	            	modifiedtime = temp.get("modifiedtime").toString();
-//	            	System.out.println("modifiedtime : " + modifiedtime);
-	        	}
-	        	
-	        	if(temp.containsKey("readcount")) {
-	        		readcount = Integer.parseInt(temp.get("readcount").toString());
-//	            	System.out.println("readcount : " + readcount);
-	        	}
-	        	
-	        	if (temp.containsKey("sigungucode")) {
-	        		sigungucode = temp.get("sigungucode").toString();
-//	        		System.out.println("sigungucode : " + sigungucode);
-	        	}
-	        	
-	        	if(temp.containsKey("tel")) {
-	        		tel = temp.get("tel").toString();
-//	            	System.out.println("tel : " + tel);
-	        	}
-	        	
-	        	if(temp.containsKey("title")) {
-	        		title = temp.get("title").toString();
-//	            	System.out.println("title : " + title);
-	        	}
-	        	
-//	        	System.out.println("");
-	        	
-	        	// List에 넣기
-	        	LocationBasedList locationBasedList = new LocationBasedList(addr1, addr2, areacode, booktour, cat1, cat2, cat3, contentid, contenttypeid, createdtime, dist, firstimage, firstimage2, mapx, mapy, mlevel, modifiedtime, readcount, sigungucode, tel, title);
-	        
-	        	dtos.add(locationBasedList);
+	        try {
+	        	// jsonArray item value
+		        JSONArray jsonItemArray = (JSONArray) jsonItems.get("item");
+		        
+		        // items json array에 담긴 각 json 오브젝트를 빼오는 작업
+		        if(jsonItemArray.size() >= 2) {
+		        	for (int i = 0; i < 2; i++) {
+		        		
+		        		// 임시 json 객체
+		        		int randomIndex = (int) (Math.random() * jsonItemArray.size());
+		        		
+		        		JSONObject temp = (JSONObject) jsonItemArray.get(randomIndex);
+		        		jsonItemArray.remove(randomIndex);
+		        		
+		        		// 변수 초기화
+		        		addr1 = null;
+		        		addr2 = null;
+		        		areacode = null;
+		        		booktour = null;
+		        		cat1 = null;
+		        		cat2 = null;
+		        		cat3 = null;
+		        		contentid = null;
+		        		contenttypeid = null;
+		        		createdtime = null;
+		        		dist = 0;
+		        		firstimage = null;
+		        		firstimage2 = null;
+		        		mapx = 0;
+		        		mapy = 0;
+		        		mlevel = null;
+		        		modifiedtime = null;
+		        		readcount = 0;
+		        		sigungucode = null;
+		        		tel = null;
+		        		title = null;
+		        		
+		        		if(temp.containsKey("addr1")) {
+		        			addr1 = temp.get("addr1").toString();
+//		            	System.out.println("addr1 : " + addr1);
+		        		}
+		        		
+		        		if(temp.containsKey("addr2")) {
+		        			addr2 = temp.get("addr2").toString();
+//		            	System.out.println("addr2 : " + addr2);
+		        		}
+		        		
+		        		if(temp.containsKey("areacode")) {
+		        			areacode = temp.get("areacode").toString();
+//		            	System.out.println("areacode : " + areacode);
+		        		}
+		        		
+		        		if(temp.containsKey("cat1")) {
+		        			cat1 = temp.get("cat1").toString();
+//		            	System.out.println("cat1 : " + cat1);
+		        		}
+		        		
+		        		if(temp.containsKey("cat2")) {
+		        			cat2 = temp.get("cat2").toString();
+//		            	System.out.println("cat2 : " + cat2);
+		        		}
+		        		
+		        		if(temp.containsKey("cat3")) {
+		        			cat3 = temp.get("cat3").toString();
+//		            	System.out.println("cat3 : " + cat3);
+		        		}
+		        		
+		        		if(temp.containsKey("contentid")) {
+		        			contentid = temp.get("contentid").toString();
+//		            	System.out.println("contentid : " + contentid);
+		        		}
+		        		
+		        		if(temp.containsKey("contenttypeid")) {
+		        			contenttypeid = temp.get("contenttypeid").toString();
+//		            	System.out.println("contenttypeid : " + contenttypeid);
+		        		}
+		        		
+		        		if(temp.containsKey("createdtime")) {
+		        			createdtime = temp.get("createdtime").toString();
+//		            	System.out.println("createdtime : " + createdtime);
+		        		}
+		        		
+		        		if(temp.containsKey("dist")) {
+		        			dist = Double.parseDouble(temp.get("dist").toString());
+//		            	System.out.println("dist : " + dist);
+		        		}
+		        		
+		        		if(temp.containsKey("firstimage")) {
+		        			firstimage = temp.get("firstimage").toString();
+//		            	System.out.println("firstimage : " + firstimage);
+		        		}
+		        		
+		        		if(temp.containsKey("firstimage2")) {
+		        			firstimage2 = temp.get("firstimage2").toString();
+//		            	System.out.println("firstimage2 : " + firstimage2);
+		        		}
+		        		
+		        		if(temp.containsKey("mapx")) {
+		        			mapx = Double.parseDouble(temp.get("mapx").toString());
+//		            	System.out.println("mapx : " + mapx);
+		        		}
+		        		
+		        		if(temp.containsKey("mapy")) {
+		        			mapy = Double.parseDouble(temp.get("mapy").toString());
+//		            	System.out.println("mapy : " + mapy);
+		        		}
+		        		
+		        		if(temp.containsKey("mlevel")) {
+		        			mlevel = temp.get("mlevel").toString();
+//		            	System.out.println("mlevel : " + mlevel);
+		        		}
+		        		
+		        		if(temp.containsKey("modifiedtime")) {
+		        			modifiedtime = temp.get("modifiedtime").toString();
+//		            	System.out.println("modifiedtime : " + modifiedtime);
+		        		}
+		        		
+		        		if(temp.containsKey("readcount")) {
+		        			readcount = Integer.parseInt(temp.get("readcount").toString());
+//		            	System.out.println("readcount : " + readcount);
+		        		}
+		        		
+		        		if (temp.containsKey("sigungucode")) {
+		        			sigungucode = temp.get("sigungucode").toString();
+//		        		System.out.println("sigungucode : " + sigungucode);
+		        		}
+		        		
+		        		if(temp.containsKey("tel")) {
+		        			tel = temp.get("tel").toString();
+//		            	System.out.println("tel : " + tel);
+		        		}
+		        		
+		        		if(temp.containsKey("title")) {
+		        			title = temp.get("title").toString();
+//		            	System.out.println("title : " + title);
+		        		}
+		        		
+		        		// List에 넣기
+		        		LocationBasedList locationBasedList = new LocationBasedList(addr1, addr2, areacode, booktour, cat1, cat2, cat3, contentid, contenttypeid, createdtime, dist, firstimage, firstimage2, mapx, mapy, mlevel, modifiedtime, readcount, sigungucode, tel, title);
+		        		
+		        		dtos.add(locationBasedList);
+		        	}
+		        }
+	        }
+	        catch(Exception e) {
+		        JSONObject jsonItem = (JSONObject) jsonItems.get("item");
+        		// 변수 초기화
+        		addr1 = null;
+        		addr2 = null;
+        		areacode = null;
+        		booktour = null;
+        		cat1 = null;
+        		cat2 = null;
+        		cat3 = null;
+        		contentid = null;
+        		contenttypeid = null;
+        		createdtime = null;
+        		dist = 0;
+        		firstimage = null;
+        		firstimage2 = null;
+        		mapx = 0;
+        		mapy = 0;
+        		mlevel = null;
+        		modifiedtime = null;
+        		readcount = 0;
+        		sigungucode = null;
+        		tel = null;
+        		title = null;
+        		
+        		if(jsonItem.containsKey("addr1")) {
+        			addr1 = jsonItem.get("addr1").toString();
+//            	System.out.println("addr1 : " + addr1);
+        		}
+        		
+        		if(jsonItem.containsKey("addr2")) {
+        			addr2 = jsonItem.get("addr2").toString();
+//            	System.out.println("addr2 : " + addr2);
+        		}
+        		
+        		if(jsonItem.containsKey("areacode")) {
+        			areacode = jsonItem.get("areacode").toString();
+//            	System.out.println("areacode : " + areacode);
+        		}
+        		
+        		if(jsonItem.containsKey("cat1")) {
+        			cat1 = jsonItem.get("cat1").toString();
+//            	System.out.println("cat1 : " + cat1);
+        		}
+        		
+        		if(jsonItem.containsKey("cat2")) {
+        			cat2 = jsonItem.get("cat2").toString();
+//            	System.out.println("cat2 : " + cat2);
+        		}
+        		
+        		if(jsonItem.containsKey("cat3")) {
+        			cat3 = jsonItem.get("cat3").toString();
+//            	System.out.println("cat3 : " + cat3);
+        		}
+        		
+        		if(jsonItem.containsKey("contentid")) {
+        			contentid = jsonItem.get("contentid").toString();
+//            	System.out.println("contentid : " + contentid);
+        		}
+        		
+        		if(jsonItem.containsKey("contenttypeid")) {
+        			contenttypeid = jsonItem.get("contenttypeid").toString();
+//            	System.out.println("contenttypeid : " + contenttypeid);
+        		}
+        		
+        		if(jsonItem.containsKey("createdtime")) {
+        			createdtime = jsonItem.get("createdtime").toString();
+//            	System.out.println("createdtime : " + createdtime);
+        		}
+        		
+        		if(jsonItem.containsKey("dist")) {
+        			dist = Double.parseDouble(jsonItem.get("dist").toString());
+//            	System.out.println("dist : " + dist);
+        		}
+        		
+        		if(jsonItem.containsKey("firstimage")) {
+        			firstimage = jsonItem.get("firstimage").toString();
+//            	System.out.println("firstimage : " + firstimage);
+        		}
+        		
+        		if(jsonItem.containsKey("firstimage2")) {
+        			firstimage2 = jsonItem.get("firstimage2").toString();
+//            	System.out.println("firstimage2 : " + firstimage2);
+        		}
+        		
+        		if(jsonItem.containsKey("mapx")) {
+        			mapx = Double.parseDouble(jsonItem.get("mapx").toString());
+//            	System.out.println("mapx : " + mapx);
+        		}
+        		
+        		if(jsonItem.containsKey("mapy")) {
+        			mapy = Double.parseDouble(jsonItem.get("mapy").toString());
+//            	System.out.println("mapy : " + mapy);
+        		}
+        		
+        		if(jsonItem.containsKey("mlevel")) {
+        			mlevel = jsonItem.get("mlevel").toString();
+//            	System.out.println("mlevel : " + mlevel);
+        		}
+        		
+        		if(jsonItem.containsKey("modifiedtime")) {
+        			modifiedtime = jsonItem.get("modifiedtime").toString();
+//            	System.out.println("modifiedtime : " + modifiedtime);
+        		}
+        		
+        		if(jsonItem.containsKey("readcount")) {
+        			readcount = Integer.parseInt(jsonItem.get("readcount").toString());
+//            	System.out.println("readcount : " + readcount);
+        		}
+        		
+        		if (jsonItem.containsKey("sigungucode")) {
+        			sigungucode = jsonItem.get("sigungucode").toString();
+//        		System.out.println("sigungucode : " + sigungucode);
+        		}
+        		
+        		if(jsonItem.containsKey("tel")) {
+        			tel = jsonItem.get("tel").toString();
+//            	System.out.println("tel : " + tel);
+        		}
+        		
+        		if(jsonItem.containsKey("title")) {
+        			title = jsonItem.get("title").toString();
+//            	System.out.println("title : " + title);
+        		}
+        		
+        		// List에 넣기
+        		LocationBasedList locationBasedList = new LocationBasedList(addr1, addr2, areacode, booktour, cat1, cat2, cat3, contentid, contenttypeid, createdtime, dist, firstimage, firstimage2, mapx, mapy, mlevel, modifiedtime, readcount, sigungucode, tel, title);
+        		
+        		dtos.add(locationBasedList);
 	        }
         }
-        
 		return dtos;
 	}
 }

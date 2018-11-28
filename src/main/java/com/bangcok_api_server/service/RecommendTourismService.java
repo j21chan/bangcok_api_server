@@ -9,5 +9,5 @@ import com.bangcok_api_server.domain.UserVO;
 
 public interface RecommendTourismService {
 	public List<Object> recommend() throws IOException, ParseException;
-	public List<Object> recommend(UserVO vo, String mapx, String mapy) throws IOException, ParseException;
+	public List<Object> recommend(UserVO vo, String mapx, String mapy) throws IOException, ParseException, Exception;
 }

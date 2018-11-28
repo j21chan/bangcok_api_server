@@ -1,10 +1,12 @@
 package com.bangcok_api_server.myapp;
 
+import java.util.Map;
+
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,15 +24,17 @@ public class UserController {
 	UserService service;
 	
 	@RequestMapping(value="/regist", method=RequestMethod.POST)
-	public String regist(HttpServletRequest request) throws Exception {
-		UserVO vo = new UserVO(request.getParameter("userid"),
-							   request.getParameter("country"),
-							   Integer.parseInt(request.getParameter("age")),
-							   request.getParameter("gender"),
-							   Integer.parseInt(request.getParameter("visitCount")));
-		
+	public String regist(@RequestBody Map<String, Object> user) throws Exception {
 		logger.info("regist user....");
+		UserVO vo = new UserVO();
+		vo.setUserid(user.get("userid").toString());
+		vo.setAge(Integer.parseInt(user.get("age").toString()));
+		vo.setCountry(user.get("country").toString());
+		vo.setGender(user.get("gender").toString());
+		vo.setVisitCount(Integer.parseInt(user.get("visitCount").toString()));
+		
 		service.regist(vo);
 		return "regist";
 	}
+	
 }

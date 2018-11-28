@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.bangcok_api_server.mappers.logMapper">
+  
+  	<insert id="insertLog">
+  		insert into tourism_log (userid, tourismTitle) values
+  		(#{userid}, #{country}, #{age}, #{gender}, #{visitCount})
+  	</insert>
+  	
+  </mapper>

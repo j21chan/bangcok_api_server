@@ -14,7 +14,7 @@ public class AgeContent {
 	
 	public static int[] AgeContent(int x) {
 		
-		String url = "jdbc:mysql://127.0.0.1/bangcoktest?useSSL=false&user=root&password=99189918";
+		String url = "jdbc:mysql://localhost:3306/bangcoktest?userSSL=false&characterEncoding=UTF-8&serverTimezone=UTC&user=root&password=526526526";
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;

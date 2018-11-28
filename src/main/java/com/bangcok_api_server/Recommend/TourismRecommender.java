@@ -15,7 +15,7 @@ import com.bangcok_api_server.tourism.Content;
 @Repository
 public class TourismRecommender {
 	
-	public List<Object> recommend(UserVO vo, String mapx, String mapy) throws IOException, ParseException{
+	public List<Object> recommend(UserVO vo, String mapx, String mapy) throws Exception{
 		
 		// 추천 관광지 리스트
 		List<Object> resultList = new ArrayList<Object>();

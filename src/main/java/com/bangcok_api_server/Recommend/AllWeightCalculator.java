@@ -12,16 +12,18 @@ import com.bangcok_api_server.domain.UserVO;
 import com.bangcok_api_server.statics.StaticsCalculator;
 import com.bangcok_api_server.tourism.Content;
 import com.bangcok_api_server.user_profile.RecommendUserInfo;
+import com.bangcok_api_server.utility.GenderString;
+import com.bangcok_api_server.utility.NationalityString;
 import com.bangcok_api_server.walk.RecommendWalk;
 import com.bangcok_api_server.weather.WeatherWeightCalculator;
 
 public class AllWeightCalculator {
 	
-	public List<Content> calculate(UserVO vo, String mapx, String mapy) throws IOException, ParseException {
+	public List<Content> calculate(UserVO vo, String mapx, String mapy) throws Exception, IOException, ParseException {
 		
+		// 경도, 위도 실수로 변환
 		double mapx_d = Double.parseDouble(mapx);
 		double mapy_d = Double.parseDouble(mapy);
-		System.out.println(mapx_d + " / " + mapy_d);
 		
 		// 유저 하드코딩
 		String user_country = vo.getCountry();
@@ -30,10 +32,8 @@ public class AllWeightCalculator {
 		int user_count = vo.getVisitCount();
 		
 		// 분석 하드코딩
-		int user_country1 = 1;
-		int user_gender1 = 1;
-		int user_age1 = 20;
-		int user_count1 = 1;
+		int user_country1 = NationalityString.changeString(vo.getCountry());
+		int user_gender1 = GenderString.changeString(vo.getGender());
 		
 		// 피로도 하드코딩
 		int walk_count = 6000;
@@ -42,7 +42,7 @@ public class AllWeightCalculator {
 		Map<String, Integer> walkWeight = new RecommendWalk().calculateWeight(walk_count);
 		Map<String, Integer> userInfoWeight = new RecommendUserInfo().calculateWeight(user_country, user_gender, user_age, user_count);
 		Map<String, Integer> weatherWeight = new WeatherWeightCalculator().calculateWeight(mapx_d, mapy_d);
-		Map<String, Integer> staticsWeight = new StaticsCalculator().calculateWeight(user_country1, user_gender1, user_age1, user_count1);
+		Map<String, Integer> staticsWeight = new StaticsCalculator().calculateWeight(user_country1, user_gender1, user_age, user_count);
 		
 		// 최종 컨텐츠 가중치 리스트
 		List<Content> totalWeightList = new ArrayList<Content>();
@@ -69,8 +69,8 @@ public class AllWeightCalculator {
 	public List<Content> calculate() throws IOException, ParseException {
 		
 		// 날씨 하드코딩
-		double mapx = 36.2944985;
-		double mapy = 127.3329295;
+		double mapy = 36.2944985;
+		double mapx = 127.3329295;
 		
 		// 유저 하드코딩
 		String user_country = "japan";

@@ -25,7 +25,7 @@ public class RecommendTourismServiceImpl implements RecommendTourismService {
 	}
 
 	@Override
-	public List<Object> recommend(UserVO vo, String mapx, String mapy) throws IOException, ParseException {
+	public List<Object> recommend(UserVO vo, String mapx, String mapy) throws Exception {
 		return tourismRecommender.recommend(vo, mapx, mapy);
 	}
 }

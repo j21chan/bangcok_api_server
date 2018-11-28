@@ -14,7 +14,7 @@ public class CountContent {
 		// input : 사용자가 입력한 방한횟수
 		// output : 방한횟수에 따른 관광지 타입별 점수를 저장한 배열
 		
-		String url = "jdbc:mysql://127.0.0.1/bangcoktest?useSSL=false&user=root&password=99189918";
+		String url = "jdbc:mysql://localhost:3306/bangcoktest?userSSL=false&characterEncoding=UTF-8&serverTimezone=UTC&user=root&password=526526526";
 		Connection conn = null;
 		Statement stmt = null;
 		ResultSet rs = null;
